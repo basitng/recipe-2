@@ -37,8 +37,8 @@ const WaveformAudio: React.FC<WaveformProps> = ({ url, height, loading }) => {
     if (waveformRef.current) {
       wavesurfer.current = WaveSurfer.create({
         container: waveformRef.current,
-        waveColor: "#fff",
-        progressColor: "violet",
+        waveColor: "#111",
+        progressColor: "#ffaa40",
         height,
       });
 

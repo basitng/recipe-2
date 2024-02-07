@@ -1,8 +1,7 @@
 "use client";
 import WaveformAudio from "@/components/reactive/audio-form";
+import { BorderBeam } from "@/components/reactive/beam";
 import GridPattern from "@/components/reactive/grid-pattern";
-import SparklesCore from "@/components/reactive/particles";
-import Spotlight from "@/components/reactive/spotlight";
 import { AnimatedTooltip } from "@/components/reactive/tooltip";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,12 +31,8 @@ export default function Home() {
   };
 
   return (
-    <main className="flex w-full md:px-0 px-3 min-h-screen items-center bg-black flex-col justify-around">
-      <Spotlight
-        className="-top-40 left-0 md:left-60 md:-top-20"
-        fill="#06b6d4"
-      />
-
+    <main className="flex relative w-full md:px-0 px-3 min-h-screen items-center bg-gradient-to-r from-violet-500 to-fuchsia-500 flex-col justify-around">
+      <BorderBeam size={700} borderWidth={8} colorFrom="#fff" />
       <GridPattern
         squares={[
           [4, 4],
@@ -51,37 +46,36 @@ export default function Home() {
         ]}
         className={cn(
           "[mask-image:radial-gradient(4000px_circle_at_center,white,transparent)]",
-          "inset-x-0 fill-gray-700/15 stroke-gray-700/15"
+          "inset-x-0 fill-gray-200/25 stroke-gray-200/25"
         )}
       />
-
-      <div className="md:max-w-screen-sm relative z-50 w-full flex flex-col justify-center items-center">
-        <h1 className="text-4xl font-bold capitalize text-transparent tracking-tighter bg-gradient-to-tl text-center from-black to-stone-200 bg-clip-text [text-wrap:balance] md:text-7xl md:leading-[5rem]">
+      <div className="md:max-w-screen-sm relative z-50 py-2 w-full flex flex-col justify-center items-center">
+        <h1 className="text-4xl font-bold capitalize text-transparent tracking-tighter bg-gradient-to-tl text-center from-white to-stone-200 bg-clip-text [text-wrap:balance] md:text-7xl md:leading-[5rem]">
           blog post to audio in few seconds
         </h1>
-        <div className="w-full mt-8 mb-4 bg-[#1d1d1d] shadowm-md border-[1px] h-[50px] border-gray-200/15 rounded-md">
+        <div className="w-full relative px-5 mt-8 mb-4 bg-[#fff] text-black/75 shadowm-md border-[1px] h-[80px] border-gray-200/15 rounded-full">
           <Input
             value={text}
             placeholder="Paste blog post url"
             onChange={(e) => setText(e.target.value)}
-            className="bg-transparent text-white border-none h-full"
+            className="bg-transparent outline-none text-black/75 border-none h-full"
           />
         </div>
         <div className="flex my-5 items-center space-x-4">
           <AnimatedTooltip setVoice={setVoice} items={voices} />
         </div>
         <Button
-          disabled={!voice || !text || loading}
+          disabled={!voice || !text}
           onClick={handleGenerate}
-          className="bg-gradient-to-r mt-10 from-cyan-500 to-blue-500 w-[180px] h-12"
+          className="mt-10 text-violet-500 hover:bg-violet-500 hover:text-white bg-white w-[180px] h-12"
         >
-          Convert
+          Generate
           {loading && <Loader className="w-6 h-6 ml-2 animate-spin" />}
         </Button>
       </div>
       {audio && (
         <div
-          className="w-full z-50 relative md:max-w-screen-sm p-2 flex items-center bg-[#18191c]"
+          className="w-full z-50 relative md:max-w-screen-sm p-2 flex items-center bg-[#fff]"
           style={{ borderRadius: 100 }}
         >
           <WaveformAudio loading={loading} height={70} url={audio} />
