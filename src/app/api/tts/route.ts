@@ -1,18 +1,31 @@
 import { NextResponse } from "next/server";
+import { generateText, openai } from "modelfusion";
+
 //@ts-ignore
 import { UnrealSpeechAPI } from "unrealspeech";
 
 export async function POST(req: Request) {
   try {
-    const { text, voice } = await req.json();
+    const { url, voice } = await req.json();
 
     const unrealSpeech = new UnrealSpeechAPI(
       process.env.UNREAL_SPEECH_API_KEY!
     );
 
-    console.log(text, voice);
+    const extractedText = await generateText({
+      model: openai.CompletionTextGenerator({
+        model: "gpt-3.5-turbo-instruct",
+        maxGenerationTokens: 500,
+      }),
+      prompt: `
+        You are a professional blog summarizer, and you have been tasked with summarizing the blog post below:
+        ${url}
+        `,
+    });
 
-    const taskId = await unrealSpeech.createSynthesisTask(text, voice);
+    console.log(extractedText, voice);
+
+    const taskId = await unrealSpeech.createSynthesisTask(extractedText, voice);
 
     while (true) {
       const status = await unrealSpeech.getSynthesisTaskStatus(taskId);

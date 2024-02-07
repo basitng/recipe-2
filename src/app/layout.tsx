@@ -7,8 +7,8 @@ import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Blog text to speech",
-  description: "Generate audio from blog text",
+  title: "AI Blog Summarizer",
+  description: "Summarize any blog post with AI.",
 };
 
 export default function RootLayout({

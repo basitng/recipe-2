@@ -111,7 +111,7 @@ const WaveformAudio: React.FC<WaveformProps> = ({ url, height, loading }) => {
       <div className="md:w-[400px] w-[150px]">
         <div id="waveform" ref={waveformRef} />
       </div>
-      <div className="flex items-center ml-4 text-white space-x-5">
+      <div className="flex items-center ml-4 text-black/75 space-x-5">
         <span className="text-sm">
           {wavesurfer.current
             ? formatTime(wavesurfer.current.getDuration())
